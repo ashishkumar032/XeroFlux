@@ -1,0 +1,2055 @@
+openapi: 3.1.0
+info:
+  title: ClimateLens India API
+  description: Historical observations only. Missing dependencies return explicit
+    503 errors; no fabricated fallback data. Analytics requires an explicitly configured
+    science adapter.
+  version: 1.0.0
+paths:
+  /api/v1/health:
+    get:
+      summary: Health
+      operationId: health_api_v1_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+  /api/v1/metadata:
+    get:
+      summary: Metadata
+      operationId: metadata_api_v1_metadata_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result_Catalog_'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/sources:
+    get:
+      summary: Sources
+      operationId: sources_api_v1_sources_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result_list_Source__'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/states:
+    get:
+      summary: States
+      operationId: states_api_v1_states_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result_list_StateRecord__'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/boundaries:
+    get:
+      summary: Boundaries
+      operationId: boundaries_api_v1_boundaries_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result_GeometryCollection_'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/map/rainfall:
+    get:
+      summary: Rainfall Map
+      operationId: rainfall_map_api_v1_map_rainfall_get
+      parameters:
+      - name: year
+        in: query
+        required: true
+        schema:
+          type: integer
+          maximum: 2026
+          minimum: 1800
+          title: Year
+      - name: observation_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Observation Date
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result_list_RainfallRecord__'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Service Unavailable
+  /api/v1/trends/rainfall:
+    get:
+      summary: Rainfall
+      operationId: rainfall_api_v1_trends_rainfall_get
+      parameters:
+      - name: state_id
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+          title: State Id
+      - name: start_year
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 2026
+            minimum: 1800
+          - type: 'null'
+          title: Start Year
+      - name: end_year
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 2026
+            minimum: 1800
+          - type: 'null'
+          title: End Year
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result_list_RainfallRecord__'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Service Unavailable
+  /api/v1/trends/drought:
+    get:
+      summary: Drought
+      operationId: drought_api_v1_trends_drought_get
+      parameters:
+      - name: start_year
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 2026
+            minimum: 1800
+          - type: 'null'
+          title: Start Year
+      - name: end_year
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 2026
+            minimum: 1800
+          - type: 'null'
+          title: End Year
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result_list_DroughtRecord__'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Service Unavailable
+  /api/v1/trends/temperature:
+    get:
+      summary: Temperature
+      operationId: temperature_api_v1_trends_temperature_get
+      parameters:
+      - name: region
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+          title: Region
+      - name: start_year
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 2026
+            minimum: 1800
+          - type: 'null'
+          title: Start Year
+      - name: end_year
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 2026
+            minimum: 1800
+          - type: 'null'
+          title: End Year
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result_list_TemperatureRecord__'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Service Unavailable
+  /api/v1/events/floods:
+    get:
+      summary: Floods
+      operationId: floods_api_v1_events_floods_get
+      parameters:
+      - name: state_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            minLength: 1
+            maxLength: 100
+          - type: 'null'
+          title: State Id
+      - name: year
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 2026
+            minimum: 1800
+          - type: 'null'
+          title: Year
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          minimum: 1
+          default: 100
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: valid_coordinates
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Valid Coordinates
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result_Page_EventRecord__'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Service Unavailable
+  /api/v1/events/landslides:
+    get:
+      summary: Landslides
+      operationId: landslides_api_v1_events_landslides_get
+      parameters:
+      - name: state_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            minLength: 1
+            maxLength: 100
+          - type: 'null'
+          title: State Id
+      - name: year
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 2026
+            minimum: 1800
+          - type: 'null'
+          title: Year
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          minimum: 1
+          default: 100
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: valid_coordinates
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Valid Coordinates
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result_Page_EventRecord__'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Service Unavailable
+  /api/v1/cyclones:
+    get:
+      summary: Cyclones
+      operationId: cyclones_api_v1_cyclones_get
+      parameters:
+      - name: year
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 2026
+            minimum: 1800
+          - type: 'null'
+          title: Year
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          minimum: 1
+          default: 100
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result_Page_StormRecord__'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Service Unavailable
+  /api/v1/cyclones/{storm_id}/track:
+    get:
+      summary: Track
+      operationId: track_api_v1_cyclones__storm_id__track_get
+      parameters:
+      - name: storm_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Storm Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result_list_TrackRecord__'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Service Unavailable
+  /api/v1/compare:
+    get:
+      summary: Compare
+      operationId: compare_api_v1_compare_get
+      parameters:
+      - name: state_a
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+          title: State A
+      - name: state_b
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+          title: State B
+      - name: metric
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+          title: Metric
+      - name: start_year
+        in: query
+        required: true
+        schema:
+          type: integer
+          maximum: 2026
+          minimum: 1800
+          title: Start Year
+      - name: end_year
+        in: query
+        required: true
+        schema:
+          type: integer
+          maximum: 2026
+          minimum: 1800
+          title: End Year
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result_Union_ComparisonResult__NoneType__'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Service Unavailable
+  /api/v1/insights:
+    get:
+      summary: Insights
+      operationId: insights_api_v1_insights_get
+      parameters:
+      - name: state_id
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+          title: State Id
+      - name: start_year
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 2026
+            minimum: 1800
+          - type: 'null'
+          title: Start Year
+      - name: end_year
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 2026
+            minimum: 1800
+          - type: 'null'
+          title: End Year
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result_list_Insight__'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Service Unavailable
+  /api/v1/multi-hazard:
+    get:
+      summary: Multi Hazard
+      operationId: multi_hazard_api_v1_multi_hazard_get
+      parameters:
+      - name: state_id
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+          title: State Id
+      - name: start_year
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 2026
+            minimum: 1800
+          - type: 'null'
+          title: Start Year
+      - name: end_year
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 2026
+            minimum: 1800
+          - type: 'null'
+          title: End Year
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result_list_MultiHazardRelationship__'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Service Unavailable
+  /api/v1/reports/state/{state_id}:
+    get:
+      summary: Report
+      operationId: report_api_v1_reports_state__state_id__get
+      parameters:
+      - name: state_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: State Id
+      - name: start_year
+        in: query
+        required: true
+        schema:
+          type: integer
+          maximum: 2026
+          minimum: 1800
+          title: Start Year
+      - name: end_year
+        in: query
+        required: true
+        schema:
+          type: integer
+          maximum: 2026
+          minimum: 1800
+          title: End Year
+      - name: format
+        in: query
+        required: false
+        schema:
+          const: pdf
+          type: string
+          default: pdf
+          title: Format
+      responses:
+        '200':
+          description: Observed evidence PDF
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Service Unavailable
+components:
+  schemas:
+    BoundaryFeature:
+      properties:
+        type:
+          type: string
+          const: Feature
+          title: Type
+        properties:
+          $ref: '#/components/schemas/BoundaryProperties'
+        geometry:
+          anyOf:
+          - $ref: '#/components/schemas/PolygonGeometry'
+          - $ref: '#/components/schemas/MultiPolygonGeometry'
+          title: Geometry
+      type: object
+      required:
+      - type
+      - properties
+      - geometry
+      title: BoundaryFeature
+    BoundaryProperties:
+      properties:
+        state_id:
+          type: string
+          title: State Id
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - state_id
+      - name
+      title: BoundaryProperties
+    Capabilities:
+      properties:
+        available_datasets:
+          items:
+            type: string
+          type: array
+          title: Available Datasets
+        comparison_metrics:
+          items:
+            type: string
+          type: array
+          title: Comparison Metrics
+        rainfall_observation_dates:
+          items:
+            type: string
+          type: array
+          title: Rainfall Observation Dates
+        available_years:
+          additionalProperties:
+            items:
+              type: integer
+            type: array
+          type: object
+          title: Available Years
+        available_hazards:
+          items:
+            type: string
+          type: array
+          title: Available Hazards
+        observed_replay:
+          items:
+            type: string
+          type: array
+          title: Observed Replay
+        boundaries:
+          type: boolean
+          title: Boundaries
+          default: false
+        omitted_datasets:
+          additionalProperties:
+            type: string
+          type: object
+          title: Omitted Datasets
+      type: object
+      title: Capabilities
+    Catalog:
+      properties:
+        processed_at:
+          type: string
+          title: Processed At
+        capabilities:
+          $ref: '#/components/schemas/Capabilities'
+        datasets:
+          additionalProperties:
+            $ref: '#/components/schemas/Metadata'
+          type: object
+          title: Datasets
+      type: object
+      required:
+      - processed_at
+      - capabilities
+      - datasets
+      title: Catalog
+    ComparisonPoint:
+      properties:
+        year:
+          type: integer
+          maximum: 2100.0
+          minimum: 1800.0
+          title: Year
+        state_a:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: State A
+        state_b:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: State B
+        absolute_difference:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Absolute Difference
+        percentage_difference:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Percentage Difference
+      additionalProperties: false
+      type: object
+      required:
+      - year
+      - state_a
+      - state_b
+      title: ComparisonPoint
+      description: Plugin-supplied differences; percentage baseline is state_a, never
+        zero.
+    ComparisonResult:
+      properties:
+        state_a:
+          type: string
+          minLength: 1
+          title: State A
+        state_b:
+          type: string
+          minLength: 1
+          title: State B
+        metric:
+          type: string
+          minLength: 1
+          title: Metric
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unit
+        period:
+          $ref: '#/components/schemas/Period'
+        series:
+          items:
+            $ref: '#/components/schemas/ComparisonPoint'
+          type: array
+          minItems: 1
+          title: Series
+        state_a_value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: State A Value
+        state_b_value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: State B Value
+        absolute_difference:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Absolute Difference
+        percentage_difference:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Percentage Difference
+      additionalProperties: false
+      type: object
+      required:
+      - state_a
+      - state_b
+      - metric
+      - period
+      - series
+      title: ComparisonResult
+      description: Authoritative plugin output; absent summary values remain absent/null.
+    DroughtRecord:
+      properties:
+        year:
+          type: integer
+          maximum: 2100.0
+          minimum: 1800.0
+          title: Year
+        value:
+          type: number
+          title: Value
+      additionalProperties: false
+      type: object
+      required:
+      - year
+      - value
+      title: DroughtRecord
+    ErrorDetail:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        details:
+          additionalProperties: true
+          type: object
+          title: Details
+      additionalProperties: false
+      type: object
+      required:
+      - code
+      - message
+      title: ErrorDetail
+    ErrorResponse:
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorDetail'
+      additionalProperties: false
+      type: object
+      required:
+      - error
+      title: ErrorResponse
+    EventRecord:
+      properties:
+        event_id:
+          type: string
+          title: Event Id
+        state_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State Id
+        year:
+          anyOf:
+          - type: integer
+            maximum: 2100.0
+            minimum: 1800.0
+          - type: 'null'
+          title: Year
+        timestamp:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Timestamp
+        longitude:
+          anyOf:
+          - type: number
+            maximum: 180.0
+            minimum: -180.0
+          - type: 'null'
+          title: Longitude
+        latitude:
+          anyOf:
+          - type: number
+            maximum: 90.0
+            minimum: -90.0
+          - type: 'null'
+          title: Latitude
+        attributes:
+          additionalProperties: true
+          type: object
+          title: Attributes
+      additionalProperties: false
+      type: object
+      required:
+      - event_id
+      title: EventRecord
+    GeometryCollection:
+      properties:
+        type:
+          type: string
+          const: FeatureCollection
+          title: Type
+        features:
+          items:
+            $ref: '#/components/schemas/BoundaryFeature'
+          type: array
+          title: Features
+        crs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Crs
+      type: object
+      required:
+      - type
+      - features
+      title: GeometryCollection
+    Health:
+      properties:
+        status:
+          type: string
+          const: ok
+          title: Status
+          default: ok
+        service:
+          type: string
+          title: Service
+          default: ClimateLens India
+        data_ready:
+          type: boolean
+          title: Data Ready
+          description: Prepared manifest is valid; individual datasets may still be
+            unavailable. See metadata limitations.
+        analytics_configured:
+          type: boolean
+          title: Analytics Configured
+          description: An analytics module is configured, not proof of successful
+            scientific execution.
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+      additionalProperties: false
+      type: object
+      required:
+      - data_ready
+      - analytics_configured
+      - limitations
+      title: Health
+    Insight:
+      properties:
+        id:
+          type: string
+          minLength: 1
+          title: Id
+        title:
+          type: string
+          minLength: 1
+          title: Title
+        description:
+          type: string
+          minLength: 1
+          title: Description
+        region:
+          type: string
+          minLength: 1
+          title: Region
+        computed_value:
+          anyOf:
+          - type: number
+          - type: string
+          - type: 'null'
+          title: Computed Value
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unit
+        geographic_resolution:
+          type: string
+          minLength: 1
+          title: Geographic Resolution
+        period:
+          $ref: '#/components/schemas/Period'
+        statistics:
+          additionalProperties:
+            anyOf:
+            - type: number
+            - type: string
+            - type: 'null'
+          type: object
+          title: Statistics
+        source_ids:
+          items:
+            type: string
+          type: array
+          title: Source Ids
+        method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Method
+        observation_count:
+          type: integer
+          minimum: 0.0
+          title: Observation Count
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - title
+      - description
+      - region
+      - computed_value
+      - unit
+      - geographic_resolution
+      - period
+      - statistics
+      - source_ids
+      - observation_count
+      - limitations
+      title: Insight
+    Metadata:
+      properties:
+        metric:
+          type: string
+          title: Metric
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unit
+        geographic_level:
+          type: string
+          title: Geographic Level
+        time_resolution:
+          type: string
+          title: Time Resolution
+        period:
+          $ref: '#/components/schemas/Period'
+        source_ids:
+          items:
+            type: string
+          type: array
+          title: Source Ids
+        method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Method
+        observation_count:
+          type: integer
+          minimum: 0.0
+          title: Observation Count
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+      additionalProperties: false
+      type: object
+      required:
+      - metric
+      - geographic_level
+      - time_resolution
+      - observation_count
+      title: Metadata
+    MultiHazardRelationship:
+      properties:
+        id:
+          type: string
+          minLength: 1
+          title: Id
+        title:
+          type: string
+          minLength: 1
+          title: Title
+        description:
+          type: string
+          minLength: 1
+          title: Description
+        hazards:
+          items:
+            type: string
+          type: array
+          minItems: 2
+          title: Hazards
+        region:
+          type: string
+          minLength: 1
+          title: Region
+        state_ids:
+          items:
+            type: string
+          type: array
+          title: State Ids
+        period:
+          $ref: '#/components/schemas/Period'
+        observations:
+          items:
+            $ref: '#/components/schemas/RelationshipObservation'
+          type: array
+          title: Observations
+        source_ids:
+          items:
+            type: string
+          type: array
+          title: Source Ids
+        method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Method
+        observation_count:
+          type: integer
+          minimum: 0.0
+          title: Observation Count
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - title
+      - description
+      - hazards
+      - region
+      - state_ids
+      - period
+      - observations
+      - source_ids
+      - observation_count
+      - limitations
+      title: MultiHazardRelationship
+    MultiPolygonGeometry:
+      properties:
+        type:
+          type: string
+          const: MultiPolygon
+          title: Type
+        coordinates:
+          items:
+            items:
+              items:
+                items:
+                  type: number
+                type: array
+                maxItems: 3
+                minItems: 2
+              type: array
+            type: array
+          type: array
+          title: Coordinates
+      type: object
+      required:
+      - type
+      - coordinates
+      title: MultiPolygonGeometry
+    Page_EventRecord_:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/EventRecord'
+          type: array
+          title: Items
+        total:
+          type: integer
+          title: Total
+        limit:
+          type: integer
+          title: Limit
+        offset:
+          type: integer
+          title: Offset
+      type: object
+      required:
+      - items
+      - total
+      - limit
+      - offset
+      title: Page[EventRecord]
+    Page_StormRecord_:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/StormRecord'
+          type: array
+          title: Items
+        total:
+          type: integer
+          title: Total
+        limit:
+          type: integer
+          title: Limit
+        offset:
+          type: integer
+          title: Offset
+      type: object
+      required:
+      - items
+      - total
+      - limit
+      - offset
+      title: Page[StormRecord]
+    Period:
+      properties:
+        start:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+      additionalProperties: false
+      type: object
+      title: Period
+    PolygonGeometry:
+      properties:
+        type:
+          type: string
+          const: Polygon
+          title: Type
+        coordinates:
+          items:
+            items:
+              items:
+                type: number
+              type: array
+              maxItems: 3
+              minItems: 2
+            type: array
+          type: array
+          title: Coordinates
+      type: object
+      required:
+      - type
+      - coordinates
+      title: PolygonGeometry
+    RainfallRecord:
+      properties:
+        state_id:
+          type: string
+          title: State Id
+        year:
+          type: integer
+          maximum: 2100.0
+          minimum: 1800.0
+          title: Year
+        value:
+          type: number
+          title: Value
+        date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Date
+      additionalProperties: false
+      type: object
+      required:
+      - state_id
+      - year
+      - value
+      title: RainfallRecord
+    RelationshipObservation:
+      properties:
+        hazard:
+          type: string
+          minLength: 1
+          title: Hazard
+        event_id:
+          type: string
+          minLength: 1
+          title: Event Id
+        state_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State Id
+        year:
+          anyOf:
+          - type: integer
+            maximum: 2100.0
+            minimum: 1800.0
+          - type: 'null'
+          title: Year
+        timestamp:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Timestamp
+        longitude:
+          anyOf:
+          - type: number
+            maximum: 180.0
+            minimum: -180.0
+          - type: 'null'
+          title: Longitude
+        latitude:
+          anyOf:
+          - type: number
+            maximum: 90.0
+            minimum: -90.0
+          - type: 'null'
+          title: Latitude
+      additionalProperties: false
+      type: object
+      required:
+      - hazard
+      - event_id
+      title: RelationshipObservation
+    Result_Catalog_:
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - no_data
+          title: Status
+        data:
+          $ref: '#/components/schemas/Catalog'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      type: object
+      required:
+      - status
+      - data
+      - meta
+      title: Result[Catalog]
+    Result_GeometryCollection_:
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - no_data
+          title: Status
+        data:
+          $ref: '#/components/schemas/GeometryCollection'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      type: object
+      required:
+      - status
+      - data
+      - meta
+      title: Result[GeometryCollection]
+    Result_Page_EventRecord__:
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - no_data
+          title: Status
+        data:
+          $ref: '#/components/schemas/Page_EventRecord_'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      type: object
+      required:
+      - status
+      - data
+      - meta
+      title: Result[Page[EventRecord]]
+    Result_Page_StormRecord__:
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - no_data
+          title: Status
+        data:
+          $ref: '#/components/schemas/Page_StormRecord_'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      type: object
+      required:
+      - status
+      - data
+      - meta
+      title: Result[Page[StormRecord]]
+    Result_Union_ComparisonResult__NoneType__:
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - no_data
+          title: Status
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/ComparisonResult'
+          - type: 'null'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      type: object
+      required:
+      - status
+      - data
+      - meta
+      title: Result[Union[ComparisonResult, NoneType]]
+    Result_list_DroughtRecord__:
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - no_data
+          title: Status
+        data:
+          items:
+            $ref: '#/components/schemas/DroughtRecord'
+          type: array
+          title: Data
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      type: object
+      required:
+      - status
+      - data
+      - meta
+      title: Result[list[DroughtRecord]]
+    Result_list_Insight__:
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - no_data
+          title: Status
+        data:
+          items:
+            $ref: '#/components/schemas/Insight'
+          type: array
+          title: Data
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      type: object
+      required:
+      - status
+      - data
+      - meta
+      title: Result[list[Insight]]
+    Result_list_MultiHazardRelationship__:
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - no_data
+          title: Status
+        data:
+          items:
+            $ref: '#/components/schemas/MultiHazardRelationship'
+          type: array
+          title: Data
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      type: object
+      required:
+      - status
+      - data
+      - meta
+      title: Result[list[MultiHazardRelationship]]
+    Result_list_RainfallRecord__:
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - no_data
+          title: Status
+        data:
+          items:
+            $ref: '#/components/schemas/RainfallRecord'
+          type: array
+          title: Data
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      type: object
+      required:
+      - status
+      - data
+      - meta
+      title: Result[list[RainfallRecord]]
+    Result_list_Source__:
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - no_data
+          title: Status
+        data:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Data
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      type: object
+      required:
+      - status
+      - data
+      - meta
+      title: Result[list[Source]]
+    Result_list_StateRecord__:
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - no_data
+          title: Status
+        data:
+          items:
+            $ref: '#/components/schemas/StateRecord'
+          type: array
+          title: Data
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      type: object
+      required:
+      - status
+      - data
+      - meta
+      title: Result[list[StateRecord]]
+    Result_list_TemperatureRecord__:
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - no_data
+          title: Status
+        data:
+          items:
+            $ref: '#/components/schemas/TemperatureRecord'
+          type: array
+          title: Data
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      type: object
+      required:
+      - status
+      - data
+      - meta
+      title: Result[list[TemperatureRecord]]
+    Result_list_TrackRecord__:
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - no_data
+          title: Status
+        data:
+          items:
+            $ref: '#/components/schemas/TrackRecord'
+          type: array
+          title: Data
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      type: object
+      required:
+      - status
+      - data
+      - meta
+      title: Result[list[TrackRecord]]
+    Source:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        provider:
+          type: string
+          title: Provider
+        url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Url
+        geographic_coverage:
+          type: string
+          title: Geographic Coverage
+        temporal_coverage:
+          type: string
+          title: Temporal Coverage
+        data_format:
+          type: string
+          title: Data Format
+        purpose:
+          type: string
+          title: Purpose
+        provenance_status:
+          type: string
+          title: Provenance Status
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - name
+      - provider
+      - geographic_coverage
+      - temporal_coverage
+      - data_format
+      - purpose
+      - provenance_status
+      title: Source
+    StateRecord:
+      properties:
+        state_id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: State Id
+        name:
+          type: string
+          minLength: 1
+          title: Name
+      additionalProperties: false
+      type: object
+      required:
+      - state_id
+      - name
+      title: StateRecord
+    StormRecord:
+      properties:
+        storm_id:
+          type: string
+          title: Storm Id
+        name:
+          type: string
+          title: Name
+        year:
+          type: integer
+          maximum: 2100.0
+          minimum: 1800.0
+          title: Year
+      additionalProperties: false
+      type: object
+      required:
+      - storm_id
+      - name
+      - year
+      title: StormRecord
+    TemperatureRecord:
+      properties:
+        year:
+          type: integer
+          maximum: 2100.0
+          minimum: 1800.0
+          title: Year
+        value:
+          type: number
+          title: Value
+        region:
+          type: string
+          title: Region
+        month:
+          anyOf:
+          - type: integer
+            maximum: 12.0
+            minimum: 1.0
+          - type: 'null'
+          title: Month
+      additionalProperties: false
+      type: object
+      required:
+      - year
+      - value
+      - region
+      title: TemperatureRecord
+    TrackRecord:
+      properties:
+        storm_id:
+          type: string
+          title: Storm Id
+        timestamp:
+          type: string
+          title: Timestamp
+        longitude:
+          type: number
+          maximum: 180.0
+          minimum: -180.0
+          title: Longitude
+        latitude:
+          type: number
+          maximum: 90.0
+          minimum: -90.0
+          title: Latitude
+        wind:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Wind
+        pressure:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Pressure
+        wind_unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Wind Unit
+        pressure_unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Pressure Unit
+      additionalProperties: false
+      type: object
+      required:
+      - storm_id
+      - timestamp
+      - longitude
+      - latitude
+      title: TrackRecord

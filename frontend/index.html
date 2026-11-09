@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="theme-color" content="#f3f7f1"/>
+    <meta name="description" content="ClimateLens India — historical climate evidence, powered by NIElytics."/>
+    <title>ClimateLens India</title>
+    <script>
+      try {
+        const theme = localStorage.getItem('climatelens-theme') === 'dark' ? 'dark' : 'light';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', theme === 'dark' ? '#0b1720' : '#f3f7f1');
+      } catch { /* The default light theme remains usable when storage is blocked. */ }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

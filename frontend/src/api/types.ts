@@ -1,0 +1,14 @@
+import type { components } from './schema';
+type S = components['schemas'];
+export type Metadata=S['Metadata'];
+export type StateRecord=S['StateRecord'];
+export type RainfallRecord=S['RainfallRecord'];
+export type EventRecord=S['EventRecord'];
+export type StormRecord=S['StormRecord'];
+export type TrackRecord=S['TrackRecord'];
+export type Insight=S['Insight'];
+export type ComparisonResult=S['ComparisonResult'];
+export type MultiHazardRelationship=S['MultiHazardRelationship'];
+export type Source=S['Source'];
+export type GeometryCollection=S['GeometryCollection'];
+export type Catalog=S['Catalog'];

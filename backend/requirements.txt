@@ -1,0 +1,12 @@
+fastapi>=0.115,<1
+uvicorn>=0.34,<1
+pydantic>=2.10,<3
+pandas>=2.2,<3
+pyarrow>=19,<24
+reportlab>=4.3,<5
+PyYAML>=6,<7
+pytest>=8,<10
+httpx>=0.28,<1
+pypdf>=5,<7
+nielytics @ git+https://github.com/prabal009/nielytics.git@ebb751664d92ce11a6751d2d933a9c2282de0c83
+pyproj>=3.7,<4

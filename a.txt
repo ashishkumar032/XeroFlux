@@ -1,0 +1,952 @@
+
+YOU ARE A SENIOR FRONTEND ENGINEER, REACT DEVELOPER,
+UI/UX DESIGNER, DATA VISUALIZATION SPECIALIST,
+AND INTERACTIVE GEOSPATIAL APPLICATION ENGINEER.
+
+PROJECT: ClimateLens India
+COMPETITION: NIErnaya 2026 — Round 2
+
+YOUR ROLE: TEAMMATE 3 — FRONTEND DEVELOPMENT.
+
+====================================================
+MISSION
+====================================================
+
+Design, implement, integrate, and test an
+exceptionally polished interactive web dashboard
+for ClimateLens India.
+
+ClimateLens India is a nationwide historical
+climate and disaster analytics platform powered
+by the custom NIElytics Python library.
+
+The dashboard must help users:
+
+- Explore historical climate patterns across India.
+- Investigate five disaster categories.
+- Select states and view supported measurements.
+- Replay historical cyclone events.
+- Compare two states.
+- Understand NIElytics-generated findings.
+- Investigate overlapping hazards.
+- Download historical evidence reports.
+- Verify the source behind every important insight.
+
+This is a real hackathon application.
+
+Build a fully functional dashboard, not a
+static UI, mockup, or screenshot reproduction.
+
+====================================================
+1. TECHNOLOGY STACK
+====================================================
+
+Preferred stack:
+
+React
+TypeScript
+Vite
+Tailwind CSS
+MapLibre GL JS
+Recharts or Plotly
+Lucide Icons
+React Query / TanStack Query
+
+Use the project's existing compatible frontend
+libraries where possible.
+
+Do not introduce unnecessary dependencies.
+
+Use actual backend APIs built by Teammate 2.
+
+Inspect the current workspace before making changes.
+
+If a frontend already exists, improve it rather
+than creating a conflicting second application.
+
+====================================================
+2. DESIGN DIRECTION
+====================================================
+
+The dashboard should feel like a premium,
+research-grade climate intelligence platform.
+
+Visual direction:
+
+- Modern scientific dashboard
+- Elegant layout
+- Professional typography
+- Consistent spacing
+- Clear information hierarchy
+- Smooth but purposeful transitions
+- Accessible contrast
+- Minimal visual clutter
+- High-quality map visualization
+- Responsive design
+- Subtle climate-related visual identity
+
+Suggested palette:
+
+Deep navy: #0B1426
+Dark surface: #101D33
+Ocean blue: #2A8BCB
+Teal accent: #18B6A4
+Warm orange: #F6A64C
+Danger red: #E65B5B
+
+Use colors semantically.
+
+Do not use red for every hazard.
+
+Provide visually distinct colors for:
+
+Heatwaves
+Floods
+Droughts
+Landslides
+Cyclones
+
+Provide readable legends and units.
+
+Do not rely solely on color to convey information.
+
+Support desktop layouts first, then make
+the interface responsive for mobile.
+
+Use subtle hover, loading, and selection animations.
+
+Avoid heavy animation that affects performance.
+
+====================================================
+3. APPLICATION INFORMATION ARCHITECTURE
+====================================================
+
+Create the following main sections:
+
+A. Overview
+B. Disaster Explorer
+C. Climate Time Machine
+D. State Comparison
+E. NIElytics Insights
+F. Multi-Hazard Explorer
+G. Sources and Methodology
+
+The reporting feature should be accessible
+from relevant state views.
+
+Use a sidebar or compact navigation system.
+
+Keep the full India map as a central visual element.
+
+Do not scatter independent charts across the page
+without a clear user journey.
+
+====================================================
+4. OVERVIEW PAGE
+====================================================
+
+Build a polished landing dashboard.
+
+Include:
+
+- ClimateLens India branding
+- "Powered by NIElytics" identification
+- Full-India geographical visualization
+- Clearly labeled dataset coverage
+- Available states and union territories
+- Five hazard categories
+- Selected historical period
+- Data availability summary
+- Access to the main exploration tools
+
+Useful KPI cards may include:
+
+States/UTs represented
+Datasets integrated
+Hazards supported
+Historical records available
+
+All displayed numbers must come from the
+backend metadata or validated constants.
+
+Never invent statistics for presentation.
+
+A dataset count is not a disaster count.
+
+Clearly distinguish available geographical
+coverage from verified analytical coverage.
+
+====================================================
+5. INTERACTIVE INDIA MAP
+====================================================
+
+This is the most important interface component.
+
+Create a geographically accurate interactive map
+using MapLibre GL JS and the official source
+boundaries served by the backend.
+
+Requirements:
+
+1. Display the complete available India boundaries.
+2. Show states and union territories.
+3. Support zooming and panning.
+4. Support click-to-select state.
+5. Highlight selected states.
+6. Show useful hover information.
+7. Display map legends and source attribution.
+8. Allow selection of supported historical periods.
+9. Support different hazard visualization layers.
+10. Respond quickly when filters are changed.
+
+The map should support:
+
+- Rainfall choropleth
+- Flood-event markers
+- Landslide-event markers
+- Cyclone paths
+- Selected-state highlighting
+
+Temperature and drought data must be displayed
+at their ACTUAL supported geographical resolution.
+
+Do not create fake district/state-level heat
+or drought layers from national/regional values.
+
+For states with no available measurements,
+use a distinct no-data display treatment.
+
+Never color a state as having zero disasters
+merely because observations are unavailable.
+
+Use meaningful tooltips with units and dates.
+
+Display source and observation-coverage details.
+
+====================================================
+6. DISASTER EXPLORER
+====================================================
+
+Create five selectable disaster categories.
+
+A. HEAT
+
+Show:
+
+- Historical regional temperature trends
+- Year/month selection where supported
+- Available temperature anomaly statistics
+- NIElytics interpretations
+- Geographic and temporal limitations
+
+B. FLOODS
+
+Show:
+
+- Historical reported flood events
+- Event locations when available
+- Time filters
+- Event counts
+- Associated source information
+
+C. DROUGHT
+
+Show:
+
+- Historical national drought time series
+- Drought-area percentages where supported
+- Change over available periods
+- National-level scope labels
+
+D. LANDSLIDES
+
+Show:
+
+- Historical landslide markers
+- Geographic location
+- Available event year
+- Reported event attributes
+- Source quality notes
+
+E. CYCLONES
+
+Show:
+
+- Historical cyclone tracks
+- Storm identifiers and names
+- Event-year selection
+- Track details
+- Available wind and pressure measurements
+
+All categories must display:
+
+- Dataset source
+- Available date range
+- Unit of measurement
+- Geographic scope
+- Loading states
+- Empty-data states
+- Methodology access
+
+====================================================
+7. CLIMATE TIME MACHINE
+====================================================
+
+Create an impressive interactive historical
+replay feature called:
+
+CLIMATE TIME MACHINE
+
+This must be a major highlight of the dashboard.
+
+Interface:
+
+- Select a historical year.
+- Select an available disaster category.
+- For cyclones, select a recorded storm.
+- Display the event on the India map.
+- Include a chronological timeline.
+- Include Play, Pause, Restart and Step controls.
+- Include playback speed settings.
+- Display the current timestamp.
+- Display source and event metadata.
+
+For cyclone replay:
+
+1. Request historical cyclone records.
+2. Let users select a real storm.
+3. Fetch its chronological track.
+4. Plot the full verified route.
+5. Animate a marker along recorded track points.
+6. Update timestamp and measurements.
+7. Let users pause at any observation.
+8. Show the storm path clearly against India.
+
+Use source-record timestamps.
+
+If visual interpolation is added, make it
+clear that intermediate positions are visual
+estimates, not additional observed data.
+
+A suitable demonstration target is Cyclone
+Fani (2019), provided the backend confirms
+the necessary records are available.
+
+For floods and landslides:
+
+Support timeline-based display of available
+historical event records.
+
+For rainfall:
+
+Support switching among available years
+or historical periods.
+
+Do not invent missing records or create
+fictional animation paths.
+
+====================================================
+8. STATE VS STATE CLIMATE BATTLE
+====================================================
+
+Create an interactive comparison experience.
+
+Suggested title:
+
+STATE VS STATE
+Climate Comparison Lab
+
+Let users:
+
+- Select State A.
+- Select State B.
+- Choose a supported metric.
+- Select a common historical period.
+- Compare actual measurements.
+- View differences.
+- View comparison charts.
+- Read NIElytics-generated conclusions.
+
+Possible comparison metrics:
+
+- Annual rainfall
+- Rainfall anomalies
+- Reported flood event counts
+- Reported landslide event counts
+
+Display:
+
+- Side-by-side statistic cards
+- Comparison line charts
+- Bar charts where appropriate
+- Absolute differences
+- Percentage differences if meaningful
+- Data sources
+- Coverage limitations
+
+Never display unsupported state-level
+temperature or drought comparisons.
+
+Only enable metrics that the backend
+confirms are comparable.
+
+Handle cases where a comparison
+is scientifically invalid.
+
+====================================================
+9. NIELYTICS INSIGHT ENGINE
+====================================================
+
+Create a visually distinctive panel named:
+
+NIElytics Insight Engine
+
+It displays automatically generated,
+evidence-based analytical findings.
+
+Example structure:
+
+INSIGHT TITLE
+
+Selected region
+Selected historical period
+
+Main computed finding
+
+Supporting statistic or trend
+
+Source dataset
+
+Calculation methodology
+
+Observation count
+
+Known limitations
+
+Use backend-calculated values only.
+
+Never generate climate numbers in frontend code.
+
+Provide an interaction:
+
+"How was this calculated?"
+
+When selected, show:
+
+- Original data source
+- Analytical method
+- Time period
+- Unit
+- Geographical level
+- Observations used
+- Interpretation limitations
+
+The panel should make the team's original
+NIElytics library highly visible.
+
+However, never claim a particular method
+was executed unless the backend confirms it.
+
+====================================================
+10. MULTI-HAZARD CONNECTION EXPLORER
+====================================================
+
+Build an optional interface showing available
+relationships between historical hazard records.
+
+Examples:
+
+- Rainfall and reported flooding
+- Cyclones and flood-event periods
+- Rainfall and recorded landslides
+
+Use an intuitive combined map and timeline.
+
+Do not present simultaneous events as
+proof that one caused another.
+
+Only show relationships supplied by
+the validated backend analysis.
+
+If observations cannot be compared,
+display an explanation of the limitation.
+
+This feature should remain secondary
+to the main India map and Time Machine.
+
+====================================================
+11. DOWNLOADABLE EVIDENCE REPORT
+====================================================
+
+Add a button:
+
+Download Climate Report
+
+Allow users to select:
+
+- State
+- Supported historical period
+
+Request the actual generated PDF from
+the backend report endpoint.
+
+Provide:
+
+- Loading indicator
+- Successful file download
+- Friendly error message when unavailable
+
+Do not generate an empty or generic
+report filled with invented metrics.
+
+Make this feature accessible from
+the state exploration and insights pages.
+
+====================================================
+12. SOURCES AND METHODOLOGY PAGE
+====================================================
+
+Create a professional research transparency page.
+
+Include all seven sources:
+
+1. Landslides — Community GitHub dataset
+2. State boundaries — NWIC
+3. Drought — IIT Gandhinagar
+4. Temperature — IITM Pune / IMD
+5. Floods — IIT Delhi
+6. Rainfall — IMD / NWIC
+7. Cyclones — NOAA IBTrACS
+
+Retrieve actual source references and
+coverage details from backend metadata.
+
+For each source display:
+
+- Dataset name
+- Provider
+- Download/source URL
+- Geographic coverage
+- Temporal coverage
+- Data format
+- Analytical purpose
+- Scientific limitations
+
+Make provider links functional.
+
+Clearly label the landslide source's
+unverified original provenance.
+
+Do not claim real-time weather forecasting,
+official disaster alerts, or validated
+future hazard predictions.
+
+====================================================
+13. BACKEND INTEGRATION CONTRACT
+====================================================
+
+Read:
+
+contracts/openapi.yaml
+
+This is the primary API specification.
+
+Expected backend endpoints:
+
+GET /api/v1/health
+GET /api/v1/metadata
+GET /api/v1/sources
+GET /api/v1/states
+GET /api/v1/boundaries
+GET /api/v1/map/rainfall
+GET /api/v1/trends/rainfall
+GET /api/v1/trends/drought
+GET /api/v1/trends/temperature
+GET /api/v1/events/floods
+GET /api/v1/events/landslides
+GET /api/v1/cyclones
+GET /api/v1/cyclones/{storm_id}/track
+GET /api/v1/compare
+GET /api/v1/insights
+GET /api/v1/multi-hazard
+GET /api/v1/reports/state/{state_id}
+
+Do not invent backend response fields.
+
+Use actual OpenAPI schemas.
+
+Create a centralized typed API client.
+
+Use TypeScript types derived from
+the verified backend contract.
+
+Prefer TanStack Query for data fetching,
+caching, loading, and error handling.
+
+Respect response metadata:
+
+status
+data
+meta
+source_ids
+limitations
+time_resolution
+geographic_level
+
+If the backend returns no_data,
+show an honest "Data not available" state.
+
+Do not silently substitute dummy results.
+
+====================================================
+14. HANDLING INCOMPLETE BACKEND DEVELOPMENT
+====================================================
+
+The three teammates are developing in parallel.
+
+During early development:
+
+- Use typed API interfaces.
+- Implement loading and empty states.
+- Keep service adapters modular.
+- Use isolated synthetic fixtures for UI tests only.
+- Label any development-only fixtures clearly.
+- Never show mocked figures as real observations.
+- Never deploy fictional climate values.
+
+For production/demo mode:
+
+The dashboard must request real backend data.
+
+If the backend is unavailable:
+
+- Display a clear connection error.
+- Keep the application stable.
+- Offer a retry action.
+- Do not silently switch to fake statistics.
+
+====================================================
+15. CHART AND VISUALIZATION REQUIREMENTS
+====================================================
+
+Use appropriate charts:
+
+Line charts:
+Historical trends and anomalies.
+
+Bar charts:
+Valid state comparisons and event counts.
+
+Map choropleths:
+State-wise comparable measurements.
+
+Point markers:
+Recorded landslide and flood locations.
+
+Line paths:
+Historical cyclone tracks.
+
+Timeline:
+Time Machine and event exploration.
+
+Every chart must include:
+
+- Title
+- Units
+- Time range
+- Legend where appropriate
+- Tooltip
+- Source
+- No-data state
+
+Use accessible and consistent colors.
+
+Do not put different units on the same
+axis without clear labeling.
+
+Avoid visually misleading scales.
+
+Do not make unrelated hazard values appear
+directly comparable.
+
+====================================================
+16. RESPONSIVE AND ACCESSIBLE DESIGN
+====================================================
+
+The dashboard must work well on:
+
+- Desktop browser
+- Laptop
+- Tablet
+- Mobile browser
+
+For smaller screens:
+
+- Collapse navigation.
+- Stack analytical panels.
+- Keep map interactions accessible.
+- Ensure filters remain usable.
+- Avoid horizontal overflow.
+- Prevent chart text from being clipped.
+
+Include keyboard-accessible controls.
+
+Provide visible focus states.
+
+Use accessible labels.
+
+Respect reduced-motion preferences.
+
+====================================================
+17. USER EXPERIENCE DETAILS
+====================================================
+
+Implement:
+
+- Skeleton loading indicators
+- Meaningful empty states
+- Error boundaries
+- Retry controls
+- Smooth page navigation
+- Tooltips for unfamiliar climate metrics
+- Source attribution
+- Consistent date selectors
+- Available-metric selectors
+- Clear active filter indicators
+- Reset filters action
+- Export feedback
+- Readable chart legends
+- User-friendly terminology
+
+Animations should enhance understanding.
+
+Avoid distracting decorative effects.
+
+The dashboard should feel complete
+and professional even when some dataset
+features are unavailable.
+
+====================================================
+18. PERFORMANCE REQUIREMENTS
+====================================================
+
+Optimize the frontend for an ordinary laptop.
+
+Requirements:
+
+- Fast initial loading
+- Lazy-load secondary pages
+- Avoid rendering all historical points at once
+- Paginate or cluster large event collections
+- Avoid unnecessary React re-renders
+- Optimize map data updates
+- Cache safe API responses
+- Debounce rapid filter changes
+- Clean up animation resources
+- Avoid memory leaks
+- Avoid excessive third-party map requests
+
+Use a dependable map style and verify
+any external tile attribution requirements.
+
+Plan for internet instability during judging.
+
+Do not assume a paid map API is available.
+
+====================================================
+19. COMPLETE JUDGING DEMO EXPERIENCE
+====================================================
+
+Build a smooth demonstrable workflow.
+
+SCENE 1 — OVERVIEW
+
+Open ClimateLens India.
+
+Show the India map, dataset coverage,
+five hazard categories and NIElytics branding.
+
+SCENE 2 — INTERACTIVE ANALYSIS
+
+Select rainfall.
+
+Click Odisha or another state supported
+by the actual dataset.
+
+Show verified rainfall statistics
+and historical trends.
+
+SCENE 3 — CLIMATE TIME MACHINE
+
+Select 2019.
+
+Choose Cyclone Fani if present in the data.
+
+Replay its historical recorded track.
+
+Show timestamps and available measurements.
+
+SCENE 4 — STATE COMPARISON
+
+Select two states with comparable
+observations.
+
+Show validated statistics and differences.
+
+SCENE 5 — NIELYTICS INSIGHTS
+
+Display an actual automatically generated insight.
+
+Open "How was this calculated?"
+
+Show the underlying method and dataset.
+
+SCENE 6 — EVIDENCE REPORT
+
+Download a historical climate report
+containing real available observations.
+
+The demonstration must use verified data.
+
+Avoid demo-only hardcoded climate figures.
+
+====================================================
+20. TESTING AND VALIDATION
+====================================================
+
+Write tests for:
+
+- Application rendering
+- Navigation
+- API integration
+- Map loading
+- State selection
+- Hazard switching
+- Year selection
+- Time Machine controls
+- Cyclone replay behavior
+- Comparison charts
+- Insight rendering
+- Source links
+- Report downloading
+- Loading and empty states
+- API errors
+- Mobile responsiveness
+
+Run:
+
+- TypeScript type checks
+- Linting
+- Production build
+- Component tests
+- Integration tests
+
+Use browser automation where available.
+
+Manually verify core interactions if
+automated browser testing is unavailable.
+
+Do not claim visual or browser testing
+unless it has actually been performed.
+
+====================================================
+21. REQUIRED DELIVERABLES
+====================================================
+
+Deliver:
+
+1. Fully working React dashboard.
+2. Interactive India map.
+3. Five hazard exploration interfaces.
+4. Climate Time Machine.
+5. Historical cyclone replay.
+6. State vs State comparison.
+7. NIElytics insight panels.
+8. Multi-hazard view where supported.
+9. Downloadable report interface.
+10. Sources and methodology page.
+11. Responsive layouts.
+12. API client and TypeScript types.
+13. Loading/error/empty states.
+14. Frontend tests.
+15. Production build.
+16. README with run instructions.
+
+====================================================
+22. DEVELOPMENT PRIORITIES
+====================================================
+
+P0:
+Working React application, API integration,
+India map, rainfall visualization,
+state click and historical trend chart.
+
+P1:
+Five hazard views, cyclone tracks,
+Climate Time Machine.
+
+P2:
+State comparison, NIElytics insights,
+PDF report download, methodology page.
+
+P3:
+Multi-hazard explorer, extra polish,
+advanced interactions and optimization.
+
+Make the essential demonstration functional
+before adding nonessential animations.
+
+====================================================
+23. EXECUTION INSTRUCTIONS
+====================================================
+
+START NOW.
+
+Inspect the current project.
+
+Read the existing OpenAPI contract.
+
+Design the component architecture.
+
+Implement the pages.
+
+Connect real backend services.
+
+Build the map and chart interactions.
+
+Implement historical replay.
+
+Test the complete experience.
+
+Fix all reproducible errors within scope.
+
+Keep your changes within frontend-owned files.
+
+Do not modify the scientific processing logic
+or silently change backend contracts.
+
+If an API is unavailable, identify the precise
+integration blocker and coordinate through
+the contract rather than inventing values.
+
+At completion report:
+
+- Files created and changed
+- Features implemented
+- Pages completed
+- APIs integrated
+- Build and test results
+- Exact commands to run the frontend
+- Remaining limitations
+- Judge demonstration instructions
+
+FINAL SUCCESS CRITERIA:
+
+A polished, scientifically responsible,
+fully interactive India-wide climate dashboard
+that uses real historical data, showcases
+the NIElytics library, and provides a smooth
+and memorable hackathon demonstration.
+
+BUILD THE ACTUAL APPLICATION.
+DO NOT STOP AT DESIGN MOCKUPS.
